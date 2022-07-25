@@ -13,7 +13,7 @@ public class PostController {
     @Autowired
     GetPostsService getPostsService;
 
-    @GetMapping("/products")
+    @GetMapping("/posts")
     public ResponseEntity<Post[]> getProducts(){
         return ResponseEntity.ok().body(getPostsService.getPosts());
     }
