@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 @Component
 @Data
 public class Properties {
-    @Value("${posts.common}")
+    @Value("${feeds.common}")
     private String commonPosts;
 
     @Value("${spring.config.activate.on-profile}")

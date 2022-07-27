@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Post {
+public class Feed {
     @Getter
     @Setter
     private int userId;
