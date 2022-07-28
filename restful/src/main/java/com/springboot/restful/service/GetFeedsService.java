@@ -20,8 +20,9 @@ public class GetFeedsService {
     public Feed[] getFeeds(){
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-        HttpEntity <String> entity = new HttpEntity<String>(headers);
+        HttpEntity <String> entity = new HttpEntity<>(headers);
 
-        return restTemplate.exchange("https://jsonplaceholder.typicode.com/posts", HttpMethod.GET, entity, Feed[].class).getBody();
+        return restTemplate.exchange("https://jsonplaceholder.typicode.com/posts", HttpMethod.GET, entity, Feed[].class)
+                .getBody();
     }
 }
