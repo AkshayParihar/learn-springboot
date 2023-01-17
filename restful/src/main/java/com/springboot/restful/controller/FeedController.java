@@ -2,6 +2,7 @@ package com.springboot.restful.controller;
 
 import com.springboot.restful.model.Feed;
 import com.springboot.restful.service.GetFeedsService;
+import com.springboot.restful.service.InMemService;
 import com.springboot.restful.service.PostFeedService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +13,9 @@ import java.util.Map;
 
 @RestController
 public class FeedController {
+
+    @Autowired
+    InMemService memService;
 
     @Autowired
     GetFeedsService getFeedsService;
@@ -31,4 +35,18 @@ public class FeedController {
         Feed responseBody = postFeedService.postFeed(headers,feed);
         return ResponseEntity.created(URI.create("/feeds/"+feed.getUserId())).body(responseBody);
     }
+
+    @GetMapping("/reslient/")
+    public ResponseEntity<String> getData(){
+        memService.getData();
+        return null;
+    }
+
+    @GetMapping("/circuit-breaker")
+    public String circuitBreakerApi(){
+        return memService.getData();
+    }
+
+
+
 }
