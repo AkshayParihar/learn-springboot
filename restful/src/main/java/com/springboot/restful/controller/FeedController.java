@@ -5,6 +5,7 @@ import com.springboot.restful.service.GetFeedsService;
 import com.springboot.restful.service.InMemService;
 import com.springboot.restful.service.PostFeedService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,15 +37,12 @@ public class FeedController {
         return ResponseEntity.created(URI.create("/feeds/"+feed.getUserId())).body(responseBody);
     }
 
-    @GetMapping("/reslient/")
-    public ResponseEntity<String> getData(){
-        memService.getData();
-        return null;
-    }
-
     @GetMapping("/circuit-breaker")
-    public String circuitBreakerApi(){
-        return memService.getData();
+    public ResponseEntity<String> circuitBreakerApi(
+            @RequestHeader(name = "X-PASS") String pass
+    ){
+        memService.getData(pass);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 

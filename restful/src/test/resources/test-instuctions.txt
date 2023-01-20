@@ -1,0 +1,41 @@
+https://wiremock.org/docs/running-standalone/
+
+echo.> mock0.json
+
+java -jar wiremock-jre8-standalone-2.35.0.jar --port 9090
+
+curl --location --request POST 'http://localhost:9090/__admin/mappings/import' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "mappings": [
+        {
+            "request": {
+        		"method": "GET",
+        		"url": "/api/external"
+        		"headers": {
+                    "X-PASS": {
+                        "contains": "true"
+                    }
+                }
+    		},
+    		"response": {
+        		"status": 200,
+        		"body": "More content\n"
+    		}
+        },
+        {
+            "request": {
+                "method": "GET",
+                "url": "/api/external"
+                "headers": {
+                    "X-PASS": {
+                        "contains": "false"
+                    }
+                }
+            },
+            "response": {
+                "status": 500
+            }
+        }
+    ]
+}'
